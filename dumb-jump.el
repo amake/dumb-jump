@@ -248,17 +248,17 @@ or most optimal searcher."
            :regex "\\\(define\\s+\\(\\s*JJJ\\j"
            :tests ("(define (test blah)" "(define (test\n")
            :not ("(define test blah" "(define (test-asdf blah)" "(define test (lambda (blah"))
-    
+
     (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "scheme"
            :regex "\\\(define\\s+JJJ\\s*\\\(\\s*lambda"
            :tests ("(define test (lambda (blah" "(define test (lambda\n")
            :not ("(define test blah" "(define test-asdf (lambda (blah)" "(define (test)" "(define (test blah) (lambda (foo"))
-    
+
     (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "scheme"
            :regex "\\\(let\\s+JJJ\\s*(\\\(|\\\[)*"
            :tests ("(let test ((blah foo) (bar bas))" "(let test\n" "(let test [(foo")
            :not ("(let ((test blah"))
-    
+
     (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "scheme"
            :regex "\\\(define\\s+JJJ\\j"
            :tests ("(define test " "(define test\n")
@@ -278,7 +278,7 @@ or most optimal searcher."
            :regex "\\\(define\\s+\\\([^\(\)]+\\s*JJJ\\j\\s*\\\)?"
            :tests ("(define (foo test)" "(define (foo test bar)")
            :not ("(define foo test" "(define (test foo" "(define (test)"))
-    
+
     ;; c++
     (:type "function" :supports ("ag" "rg" "git-grep") :language "c++"
            :regex "\\bJJJ(\\s|\\))*\\((\\w|[,&*.<>]|\\s)*(\\))\\s*(const|->|\\{|$)|typedef\\s+(\\w|[(*]|\\s)+JJJ(\\)|\\s)*\\("
@@ -1047,22 +1047,22 @@ or most optimal searcher."
            :regex "\\\\.*newcommand\\\*?\\s*\\\{\\s*(\\\\)JJJ\\s*}"
            :tests ("\\newcommand{\\test}" "\\renewcommand{\\test}" "\\renewcommand*{\\test}" "\\newcommand*{\\test}" "\\renewcommand{ \\test }")
            :not("\\test"  "test"))
-    
+
     (:type "command" :supports ("ag" "grep" "rg" "git-grep") :language "tex"
            :regex "\\\\.*newcommand\\\*?\\s*(\\\\)JJJ\\j"
            :tests ("\\newcommand\\test {}" "\\renewcommand\\test{}" "\\newcommand \\test")
            :not("\\test"  "test"))
-    
+
     (:type "length" :supports ("ag" "grep" "rg" "git-grep") :language "tex"
            :regex "\\\\(s)etlength\\s*\\\{\\s*(\\\\)JJJ\\s*}"
            :tests ("\\setlength { \\test}" "\\setlength{\\test}" "\\setlength{\\test}{morecommands}" )
            :not("\\test"  "test"))
-    
+
     (:type "counter" :supports ("ag" "grep" "rg" "git-grep") :language "tex"
            :regex "\\\\newcounter\\\{\\s*JJJ\\s*}"
            :tests ("\\newcounter{test}" )
            :not("\\test"  "test"))
-    
+
     (:type "environment" :supports ("ag" "grep" "rg" "git-grep") :language "tex"
            :regex "\\\\.*newenvironment\\s*\\\{\\s*JJJ\\s*}"
            :tests ("\\newenvironment{test}" "\\newenvironment {test}{morecommands}" "\\lstnewenvironment{test}" "\\newenvironment {test}" )
