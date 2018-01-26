@@ -1066,7 +1066,60 @@ or most optimal searcher."
     (:type "environment" :supports ("ag" "grep" "rg" "git-grep") :language "tex"
            :regex "\\\\.*newenvironment\\s*\\\{\\s*JJJ\\s*}"
            :tests ("\\newenvironment{test}" "\\newenvironment {test}{morecommands}" "\\lstnewenvironment{test}" "\\newenvironment {test}" )
-           :not("\\test"  "test" )))
+           :not("\\test"  "test" ))
+
+    ;; typescript
+    (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+(abstract\\s+)?)?class\\s+JJJ\\b"
+           :tests ("class test" "export class test" "abstract class test"
+                   "export abstract class test")
+           :not ("class testnot"))
+    (:type "module" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(declare\\s+)?namespace\\s+JJJ\\b"
+           :tests ("declare namespace test" "namespace test")
+           :not ("declare testnot"))
+    (:type "module" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+)?module\\s+JJJ\\b"
+           :tests ("export module test" "module test")
+           :not ("module testnot"))
+    (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+)?(async\\s+)?function\\s+JJJ\\b"
+           :tests ("function test" "export function test" "export async function test"
+                   "async function test")
+           :not ("function testnot"))
+    (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "export\\s+(var|let|const)\\s+JJJ\\b"
+           :tests ("export var test" "export let test" "export const test")
+           :not ("export var testnot"))
+    (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(var|let|const)\\s+JJJ\\s*=\\s*function\\s*\\*?\\s*\\\(\\\)"
+           :tests ("var test = function ()" "let test = function()" "const test=function*()")
+           :not ("var testnot = function ()"))
+    (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+)?(public|protected|private)\\s+(static\\s+)?(abstract\\s+)?(((get|set)\\s+)|(async\\s+))?JJJ\\b"
+           :tests ("public test" "protected static test" "private abstract get test"
+                   "export public static set test" "export protected abstract async test")
+           :not ("public testnot"))
+    (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+)?interface\\s+JJJ\\b"
+           :tests ("interface test" "export interface test")
+           :not ("interface testnot"))
+    (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+)?type\\s+JJJ\\b"
+           :tests ("type test" "export type test")
+           :not ("type testnot"))
+    (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "(export\\s+)?enum\\s+JJJ\\b"
+           :tests ("enum test" "export enum test")
+           :not ("enum testnot"))
+    (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "import\\s+JJJ\\b"
+           :tests ("import test")
+           :not ("import testnot"))
+    (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "typescript"
+           :regex "\\bJJJ\\s*\\(.*\\{"
+           :tests ("test() {" "test(foo: bar) {")
+           :not ("testnot() {")))
 
   "List of regex patttern templates organized by language and type to use for generating the grep command."
   :group 'dumb-jump
@@ -1180,6 +1233,8 @@ or most optimal searcher."
     (:language "erlang" :ext "erl" :agtype "erlang" :rgtype "erlang")
     (:language "vhdl" :ext "vhd" :agtype "vhdl" :rgtype "vhdl")
     (:language "vhdl" :ext "vhdl" :agtype "vhdl" :rgtype "vhdl")
+    (:language "typescript" :ext "ts" :agtype "ts" :rgtype "ts")
+    (:language "typescript" :ext "tsx" :agtype "ts" :rgtype "ts")
     (:language "scss" :ext "scss" :agtype "css" :rgtype "css"))
 
   "Mapping of programming language(s) to file extensions."
@@ -1768,6 +1823,7 @@ current file."
     (:comment "%" :language "erlang")
     (:comment "%" :language "tex")
     (:comment "--" :language "vhdl")
+    (:comment "//" :language "typescript")
     (:comment "//" :language "scss"))
   "List of one-line comments organized by language."
   :group 'dumb-jump
